@@ -12,7 +12,9 @@
 
 body {
   font-family: Arial, Helvetica, sans-serif;
-  margin: 0;
+  padding-right: 80px;
+  padding-left: 80px;
+  background-color: #98FB98;
 }
 
 /* Style the header */
@@ -47,9 +49,10 @@ h3 {
 
 }
 #navbar2 {
-  z-index: 1000;
-
+  z-index:1000;
+  left: 0;
 }
+
 
 /* Style the navigation bar links */
 .navbar a {
@@ -114,6 +117,13 @@ font-size: 20px;
 background-color:#ACE1AF;
 
 
+}
+
+.chapter p:last-of-type::after {
+  content: "";              
+  display: block;          
+  height: 1em;              
+  background-color: inherit; 
 }
 
 
@@ -221,6 +231,23 @@ background-color:#ACE1AF;
 </head>
 <body>
 
+<div class="navbar" id="navbar2">
+  <a href="#ch02">Ovládání</a>
+  <a href="#ch03">Cíl hry</a>
+  <a href="#ch04">Duolingo</a>
+  <a href="#ch05">Varování</a>
+  <div class="dropdown">
+    <button class="dropbtn">Instalace a spuštění
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content" >
+  <a href="#ch01" >Podmínky</a>
+  <a href="#ch06">Program</a>
+    </div>
+  </div>
+
+</div>
+
 <div class="header">
   <div id="snake"></div>
   <h1>Snake game Duolingo edition</h1>
@@ -228,14 +255,6 @@ background-color:#ACE1AF;
   <p>Dokumentace</p>
 </div>
 
-<div class="navbar" id="navbar2">
-  <a href="#ch01">Instalace</a>
-  <a href="#ch02">Ovládání</a>
-  <a href="#ch03">Cíl hry</a>
-  <a href="#ch04">Duolingo</a>
-  <a href="#ch04">Varování</a>
-
-</div>
 <div class="navbar" id="navbar1">
     <input type="text" id="searchInput" placeholder="Hledaný výraz...">
   <button class="search-button" onclick="performSearch()">Hledat</button>
@@ -288,37 +307,52 @@ function performSearch() {
 }
 </script>
 <div id="content">
-<div class="chapter" title="Instalace" id="ch01">
-<h3 class="heading-1">Instalace</h3>
-<p class="para">Stáněte složku ve které je hra a klikněte na složku s příponu py. Pro spuštění programu je nutné mít nainstalovaný python <br> Poté stačí hru spustit pomocí python interpreter. <I>Varování pokud využíváte VScode nebo podobný editor je nutné udělit souboru důvěru. Zároveň je nutné otevřít v těchto editorech složku</I>
-Pokud nemáte přístup kes složc stikněte následující odakz: <a href="https://github.com/Ftacnik1/Snakegame/archive/refs/heads/main.zip" Download>Stáhnout složku</a>. Jakmile bude složka stažena otevřete jí
-</p>
+<div class="chapter" title="Požadavky pro spuštění kódu" id="ch01">
+<h3 class="heading-1">Požadavky pro spuštění kódu</h3>
+<p class="para">Pokud máte zkušenosti se spouštěním kódu v pythonu můžete přeskočit na další <a href="#ch06">instrukce</a>.<br>
+<b>Požadavky pro spuštění kódu a instalaci hry</b></p>
+<ul><li>Mít stažený python</li>
+<li>Mít připojení k internetu</li>
+<li>Možnost stahovat soubory do počítače</li></ul>
+<p class="para"><B>Jak zjistit jestli je stažený python na mém zařízení <i>(kroky řešení)</i></b></p>
+<ol><li>Otevřít příkazový řádek</li>
+<li>Zadat slovo python</li>
+<li>Pokud nevyskočí error python je nainstalovaný</li></ol>
+<p class="para"> Pokud python není nainstalovaný nainstalujte ho <i>(v případě windows přes Microsoft store)</i>.<br> Případně je možné stáhnout python na této <a href="https://www.python.org/downloads/">stránce</a>.<br>
+<I>Varování pokud využíváte <b>VSCode</b> nebo podobný editor pak je pro spuštění kódu je nutné udělit souboru důvěru. Zároveň je nutné otevřít v těchto editorech celou složku (ne jenom soubor)</I></p>
+</div>
+
+<div class="chapter" title="Stažení kódu" id="ch06">
+<h3 class="heading-1">Stažení kódu - přes dokumentaci</h3>
+<p class="para">Pokud je již nainstalovaný python můžete pokračovat na stažení souboru s kódem
+<ol><li>Klikněte na následující odkaz: <a href="https://github.com/Ftacnik1/Snakegame/archive/refs/heads/main.zip" Download>Stáhnout složku</a>.</li>
+<li>Extrahujte staženou složku do vámi vybrané složky.</li><li>Pro spuštění programu klinkněte na soubor main.py</li></ol></p>
 
 </div>
 
 <div class="chapter" id="ch02" title="Ovládání">
 <h3 class="heading-1">Ovládání</h3>
-<p class="para">Hráč ovládá hada pomocí klávesových šipek. <I> Hráči je umožněno kvůli chybám chvíli projíždět svým vlastním hadem pro příklad překliknutí. Pokud je had dostatečně velký může ho to zabít.</I> Pro pomoc stiskněte klávesu <B>h</B> 
+<p class="para">Hráč ovládá hada pomocí klávesových šipek. <I> Hráči je umožněno kvůli chybám chvíli projíždět svým vlastním hadem pro případ překliknutí. Pokud je had dostatečně velký může ho to zabít.</I> Pro otevření dokumentace stiskněte klávesu <B>h</B> 
 </p>
 
 </div>
 
 <div class="chapter" id="ch03" title="Cíl hry">
 <h3 class="heading-1">Cíl hry</h3>
-<p class="para">Cílem hry je dosáhnout co největšího skóre. Skóre je možné zvýšit trefením hlavou do rudého bodu, nebo Duolinga. Pokud had trefí do kraje plochy, nebo Duolinga skóre se resetuje a had se vrací do původního stavu<br> Hra automaticky restartuje skóre.<br></p>
+<p class="para">Cílem hry je dosáhnout co největšího skóre. Skóre je možné zvýšit trefením hlavou do rudého bodu, nebo do Duolinga. Pokud had trefí do kraje plochy <i>(nebo Duolinga jinou částí těla)</i> skóre se resetuje a had se vrací do původního stavu<br> Hra automaticky resetuje skóre.</p>
 
 </div>
 
 <div class="chapter" id="ch04" title="Duolingo">
 <h3 class="heading-1">Duolingo</h3>
-<p class="para">V pravém dolním rhu je Duolingo, který se pozření bod u hráčem může dostat z klece. Pokud ho hráč trefí hlavou vrátí se zpátky do klece. Pokud trefí hada  na jakékoli jinné místo had zemře</p>
+<p class="para">V pravém dolním rohu je Duolingo, který se pozření bodu hráčem může dostat z klece. Pokud do ptáka hráč trefí hlavou -> vrátí se zpátky do klece. Pokud pták trefí hada  na jakémkoliv jiném místě -> had zemře</p>
 </div>
 
 <div class="chapter" id="ch05" title="Varování">
 <h3 class="heading-1">Varování</h3>
-<p class="para">Pokud uživatel stiskne klávesu <B>h</B> otevře nápovědu, která vyskočí na novém okně prohlížeče. To může hada usmrtit, protože uživatel nebude moci reagovat.<br> Jak již bylo zmíněno Projíždění hada hadem může hada usmrtit. Přímán srážka ve smyčce je vždy smrtelná<br></p>
-<h3 class="heading-1">V případě problémů mne neváhejte kontaktovat na: cejka.jan@malgym.onmicrosoft.com</h3>
+<p class="para">Pokud uživatel stiskne klávesu <B>h</B> otevře nápovědu, která vyskočí v prohlížeči na novém okně. To může hada usmrtit, protože uživatel nebude moci reagovat.<br> Jak již bylo zmíněno: Projíždění hada hadem může hada usmrtit.</p>
 
+</div>
 </div>
 
 

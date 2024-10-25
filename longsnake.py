@@ -30,9 +30,9 @@ phraselist.append(line)
 """Dokumentace"""
 current_dir = os.path.dirname(os.path.abspath(__file__))
 
-# Cesta k html
+# Cesta k html dokumentaci
 html_file_path = os.path.join(current_dir, 'Dokumentace.html')
-"""Tvorba hada"""
+"""Tvorba hada a kresleni cary hadem"""
 snake=turtle.Turtle()
 snake.speed(0)
 snake.penup()
@@ -76,6 +76,9 @@ food.color(255,0,0)
 food.goto(200,200)
 window.tracer(0)
 casprom=0.001
+
+
+
 class Snake:
     def __init__(self,hlava):
         self.structure=[hlava]
@@ -88,11 +91,6 @@ class Snake:
         """pocatecni stizeni obtiznosti pak je jiz neprijemny had"""
         if self.movement<15:
             self.movement+=1
-        """for i in self.structure:
-            velikost=i.turtlesize()
-            increase=(1.1 * x for x in velikost)
-            print(increase)
-            i.shapesize(*increase)"""
         for i in range(5):
             body = turtle.Turtle()
             body.shape("square")
@@ -111,7 +109,6 @@ class Snake:
         self.structure[0].goto(0,0)
         
     def move(self):
-        zaloldpos=self.head.pos()
         oldpos=self.head.pos()
         self.head.forward(self.movement)
         for i in self.positonlist:
@@ -124,6 +121,9 @@ class Snake:
             oldpos=newoldpos
         if len(self.structure)>20:
             self.positonlist=[self.structure[i] for i in range(20,len(self.structure))]
+
+
+            
 class Duolingo:
     def __init__(self):
         """owl"""
@@ -151,6 +151,9 @@ class Duolingo:
         bubble.hideturtle()
         bubble.goto(350,100)
         self.picture2=bubble
+
+
+        
     def speakingbird(self):
         self.picture2.showturtle()
         phrase=random.choice(phraselist)
@@ -182,16 +185,25 @@ class Duolingo:
         else:
             sentence+=word
             self.pen.write(sentence ,align="center", font=("calibri",15,"bold"))
+
+            
     def unleashed(self):
+        # Vypusteni Duolinga
         self.pen.clear()
         self.picture2.hideturtle()
         self.picture1.shape("birdo.gif")
         self.freedom=True
         self.planning()
+
+        
     def planning(self):
+        # Start letu Duolinga
         self.picture1.goto(random.randint(-200,100),290)
         self.picture1.setheading(random.randint(230,310))
+
+        
     def arrest(self):
+        # Vrácení do klece
         self.freedom=False
         self.picture1.shape("judge.gif")
         self.picture1.goto(350,-100)
@@ -204,15 +216,25 @@ class Duolingo:
         
 
 def finish():
+    # Smrt hada 
     snakecomp.die()
     ptak.arrest()
     global score
     score=0
     pen.clear()
     pen.write(f"Skóre: {score}",align="center", font=("calibri",24,"bold"))
+
+    
 pred=1
+
+# Pocitadlo pro zmenu barvy
 counter=0
+
+
+# Snake object init
 snakecomp=Snake(snake)
+
+
 """Score-pocitani"""
 score=0
 pen=turtle.Turtle()
@@ -220,11 +242,14 @@ pen.hideturtle()
 pen.penup()
 pen.goto(0,250)
 pen.write(f"Skóre: {score}",align="center", font=("calibri",24,"bold"))
-"""Duolingo bird object int"""
+"""Duolingo bird object init"""
 ptak=Duolingo()
 done=False
+
+# Herni cyklus
 while not done:
     if snake.distance(food)<20:
+        # Had vrazil do ovoce
         if not ptak.freedom:
             utek=random.randint(1,7)
             if utek!=5:
@@ -237,7 +262,12 @@ while not done:
         score+=1
         pen.clear()
         pen.write(f"Skóre: {score}",align="center", font=("calibri",24,"bold"))
+
+        
+    # Pohyb hada
     snakecomp.move()
+
+    
     counter+=1
     window.update()
     time.sleep(casprom)
