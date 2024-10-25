@@ -1,4 +1,6 @@
 <div id="content">
+<h1>Projekt Septima snakegame</h1>
+<p>Toto je školní projekt z programování.</p>
 <div class="chapter" title="Požadavky pro spuštění kódu" id="ch01">
 <h3 class="heading-1">Požadavky pro spuštění kódu</h3>
 <p class="para">Pokud máte zkušenosti se spouštěním kódu v pythonu můžete přeskočit na další <a href="#ch06">instrukce</a>.<br>
