@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Duo Snake game</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+}
+
+/* Style the header */
+.header {
+  padding: 80px;
+  text-align: center;
+  background: #66FF00;
+  color: black;
+  
+}
+.header h1 {
+  font-size: 40px;
+}
+
+h3 {
+  font-size: 30px;
+}
+
+/* Style the top navigation bar */
+.navbar {
+  overflow: hidden;
+  background-color: #006400;
+  position: fixed; /* Set the navbar to fixed position */
+  top: 0; /* Position the navbar at the top of the page */
+  width: 100%;
+}
+
+#navbar1 {
+  overflow: hidden;
+  background-color: #333;
+  position: relative;
+
+}
+#navbar2 {
+  z-index: 1000;
+
+}
+
+/* Style the navigation bar links */
+.navbar a {
+  float: left;
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 20px;
+  text-decoration: none;
+}
+
+/* Right-aligned link */
+.navbar a.right {
+  float: right;
+}
+
+#content{
+ background-color: #ADFF2F;
+ color:black;
+}
+
+#content h1,#content h2,#content h3,#content h4{
+ background-color: #32CD32;
+ color:black;
+ text-decoration: underline;
+ text-decoration-color:  black;
+ font-style:italic;
+
+}
+
+
+.dropdown {
+  float: right;
+  overflow: hidden;
+}
+
+.dropdown .dropbtn {
+  font-size: 16px;  
+  border: none;
+  outline: none;
+  color: white;
+  padding: 14px 16px;
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0;
+}
+
+.navbar a:hover, .dropdown:hover .dropbtn {
+  background-color:#00AD83;
+  color: black;
+}
+.chapter p{
+font-size:inherit;
+background-color:inherit;
+transition: font-size 1s, background-color 1s;
+transition-delay:1.5s; 
+}
+
+
+.chapter p:hover{
+font-size: 20px;
+background-color:#ACE1AF;
+
+
+}
+
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  background-color: #006400;
+  float: none;
+  color: white;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.dropdown-content a:hover {
+  display: block;
+  background-color:#00AD83;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+  position:fixed;
+}
+
+
+
+
+
+/* Responsive layout - when the screen is less than 400px wide, make the navigation links stack on top of each other instead of next to each other */
+@media screen and (max-width: 400px) {
+  .navbar a {
+    float: none;
+    width:100%;
+  }
+}
+
+  .navbar input[type=text] {
+    padding: 8px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    margin-left: 16px;
+    width: 200px;
+    border: none;
+    border-radius: 5px;
+  }
+  
+  /* Style the search button */
+  .search-button {
+    padding: 8px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    margin-left: 8px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  /* Change the background color of the search button when hovering */
+  .search-button:hover {
+    background-color: #0056b3;
+  }
+
+  /* Some basic styling for the search results */
+  #searchResults {
+    font-size:18px;
+  }
+  #searchResults li {
+    font-size:15px;
+  }
+
+  #snake{
+    position:relative;
+    width:80px;
+    height:20px;
+    background:black;
+    animation:snakeleft 12s;
+    animation-iteration-count:infinite;
+    animation-timing-function: linear;
+    transform-origin: center;
+  }
+  
+  @keyframes snakeleft{
+  0%{left:0; bottom: 0; transform: rotate(0deg)}
+  36.5%{left: calc(100% - 70px); bottom:0; transform: rotate(0deg)}
+  36.51% {transform: rotate(90deg);}
+  50%{left: calc(100% - 70px);bottom:-240px; transform: rotate(90deg)}
+  50.1% {transform: rotate(0deg);}
+  86.5%{left: 0; bottom:-240px; transform: rotate(0deg)}
+  86.51%{transform: rotate(90deg)}
+  100%{left: 0; bottom: 0;transform: rotate(90deg)}
+
+}
+
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div id="snake"></div>
+  <h1>Snake game Duolingo edition</h1>
+  <h2>Návod k použití programu</h2>
+  <p>Dokumentace</p>
+</div>
+
+<div class="navbar" id="navbar2">
+  <a href="#ch01">Instalace</a>
+  <a href="#ch02">Ovládání</a>
+  <a href="#ch03">Cíl hry</a>
+  <a href="#ch04">Duolingo</a>
+  <a href="#ch04">Varování</a>
+
+</div>
+<div class="navbar" id="navbar1">
+    <input type="text" id="searchInput" placeholder="Hledaný výraz...">
+  <button class="search-button" onclick="performSearch()">Hledat</button>
+</div>
+
+<div id="searchResults"></div>
+<script>
+function performSearch() {
+  const searchInput = document.getElementById("searchInput");
+  const searchText = searchInput.value.trim().toLowerCase();
+  const content = document.getElementById("content");
+  const searchResults = document.getElementById("searchResults");
+
+  searchResults.innerHTML = "";
+
+  if (!searchText) {
+    return;
+  }
+
+  const divs = content.getElementsByTagName("div");
+  let resultsFound = false;
+  const ol = document.createElement('ol');
+
+  for (let i = 0; i < divs.length; i++) {
+    const divContent = divs[i].innerText.toLowerCase();
+    const divId = divs[i].id;
+    const divName = divs[i].title;
+
+    if (divContent.includes(searchText)) {
+      resultsFound = true; // At least one result is found
+
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      
+      a.textContent = divName;
+      a.href = `#${divId}`;
+      li.appendChild(a);
+      ol.appendChild(li); 
+    }
+  }
+
+  if (resultsFound) {
+    const resultHeader = document.createElement('p');
+    resultHeader.innerHTML = `<strong>Výsledky vyhledávání pro výraz: ${searchText}</strong>`;
+    searchResults.appendChild(resultHeader);
+    searchResults.appendChild(ol); // Append the list of results
+  } else {
+    searchResults.innerHTML = `<p>Nebyly nalezeny žádné výsledky pro výraz: "${searchText}".</p>`;
+  }
+}
+</script>
+<div id="content">
+<div class="chapter" title="Instalace" id="ch01">
+<h3 class="heading-1">Instalace</h3>
+<p class="para">Stáněte složku ve které je hra a klikněte na složku s příponu py. Pro spuštění programu je nutné mít nainstalovaný python <br> Poté stačí hru spustit pomocí python interpreter. <I>Varování pokud využíváte VScode nebo podobný editor je nutné udělit souboru důvěru. Zároveň je nutné otevřít v těchto editorech složku</I>
+</p>
+
+</div>
+
+<div class="chapter" id="ch02" title="Ovládání">
+<h3 class="heading-1">Ovládání</h3>
+<p class="para">Hráč ovládá hada pomocí klávesových šipek. <I> Hráči je umožněno kvůli chybám chvíli projíždět svým vlastním hadem pro příklad překliknutí. Pokud je had dostatečně velký může ho to zabít.</I> Pro pomoc stiskněte klávesu <B>h</B> 
+</p>
+
+</div>
+
+<div class="chapter" id="ch03" title="Cíl hry">
+<h3 class="heading-1">Cíl hry</h3>
+<p class="para">Cílem hry je dosáhnout co největšího skóre. Skóre je možné zvýšit trefením hlavou do rudého bodu, nebo Duolinga. Pokud had trefí do kraje plochy, nebo Duolinga skóre se resetuje a had se vrací do původního stavu<br> Hra automaticky restartuje skóre.<br></p>
+
+</div>
+
+<div class="chapter" id="ch04" title="Duolingo">
+<h3 class="heading-1">Duolingo</h3>
+<p class="para">V pravém dolním rhu je Duolingo, který se pozření bod u hráčem může dostat z klece. Pokud ho hráč trefí hlavou vrátí se zpátky do klece. Pokud trefí hada  na jakékoli jinné místo had zemře</p>
+</div>
+
+<div class="chapter" id="ch05" title="Varování">
+<h3 class="heading-1">Varování</h3>
+<p class="para">Pokud uživatel stiskne klávesu <B>h</B> otevře nápovědu, která vyskočí na novém okně prohlížeče. To může hada usmrtit, protože uživatel nebude moci reagovat.<br> Jak již bylo zmíněno Projíždění hada hadem může hada usmrtit. Přímán srážka ve smyčce je vždy smrtelná<br></p>
+<h3 class="heading-1">V případě problémů mne neváhejte kontaktovat na: cejka.jan@malgym.onmicrosoft.com</h3>
+
+</div>
+
+
+
+</body>
+</html>
