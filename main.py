@@ -3,11 +3,20 @@ import time
 import random
 import os
 import webbrowser
+import chime
+import pygame
+
+
+chime.theme('material')
 window=turtle.Screen()
 window.colormode(255)
 window.bgcolor(0,0,255)
 c1=0
 c2=255
+"""Hudba pozadi"""
+pygame.init()
+pygame.mixer.music.load('background.wav')
+pygame.mixer.music.play(-1)
 """Vytvoreni okna. Registrace obrazku"""
 window.title("Hladik")
 window.setup(width=900, height=580)
@@ -77,6 +86,9 @@ food.goto(200,200)
 window.tracer(0)
 casprom=0.001
 
+with open("top.txt", "r") as my_file:
+    top_score = int(my_file.read())
+    old_top_score=top_score
 
 
 class Snake:
@@ -84,12 +96,12 @@ class Snake:
         self.structure=[hlava]
         self.positonlist=[]
         self.head=hlava
-        self.movement=3
+        self.movement=1
         self.novyclen=False
         self.pocitadlo=0
     def growth(self):
         """pocatecni stizeni obtiznosti pak je jiz neprijemny had"""
-        if self.movement<15:
+        if self.movement<4:
             self.movement+=1
         for i in range(5):
             body = turtle.Turtle()
@@ -99,22 +111,23 @@ class Snake:
             body.goto(self.head.pos())
             self.structure.append(body)
         self.novyclen=True
+        chime.success()
 
     def die(self):
         for i in range(len(self.structure)-1):
             self.structure[-1].hideturtle()
             self.structure[-1].goto(350,-100)
             self.structure.pop(-1)
-        self.movement=3
+        self.movement=1
         self.structure[0].goto(0,0)
+        chime.error()
         
     def move(self):
         oldpos=self.head.pos()
-        self.head.forward(self.movement)
+        self.head.forward(int(self.movement))
         for i in self.positonlist:
-            if self.head.distance(i)<1:
-                finish()
-                
+            if self.head.distance(i)<2:
+                finish()     
         for i in range(1,len(self.structure)):
             newoldpos=self.structure[i].pos()
             self.structure[i].goto(oldpos)
@@ -216,13 +229,18 @@ class Duolingo:
         
 
 def finish():
-    # Smrt hada 
+    # Smrt hada
+    global top_score
+    global old_top_score
     snakecomp.die()
+    if top_score !=old_top_score:
+        with open("top.txt", "w") as my_file:
+            my_file.write(str(top_score))
     ptak.arrest()
     global score
     score=0
     pen.clear()
-    pen.write(f"Skóre: {score}",align="center", font=("calibri",24,"bold"))
+    pen.write(f"Skóre: {score} Topskóre: {top_score}",align="center", font=("calibri",24,"bold"))
 
     
 pred=1
@@ -241,10 +259,11 @@ pen=turtle.Turtle()
 pen.hideturtle()
 pen.penup()
 pen.goto(0,250)
-pen.write(f"Skóre: {score}",align="center", font=("calibri",24,"bold"))
+pen.write(f"Skóre: {score} Topskóre: {top_score}",align="center", font=("calibri",24,"bold"))
 """Duolingo bird object init"""
 ptak=Duolingo()
 done=False
+oldtime=time.time()
 
 # Herni cyklus
 while not done:
@@ -261,7 +280,9 @@ while not done:
         snakecomp.growth()
         score+=1
         pen.clear()
-        pen.write(f"Skóre: {score}",align="center", font=("calibri",24,"bold"))
+        if score >= top_score:
+            top_score = score
+        pen.write(f"Skóre: {score} Topskóre: {top_score}",align="center", font=("calibri",24,"bold"))
 
         
     # Pohyb hada
@@ -293,9 +314,14 @@ while not done:
             if ptak.picture1.distance(snakecomp.head)<30:
                 ptak.arrest()
                 score+=3
+                chime.info()
                 pen.clear()
-                pen.write(f"Skóre: {score}",align="center", font=("calibri",24,"bold"))
+                if score >= top_score:
+                    top_score = score
+                pen.write(f"Skóre: {score} Topskóre: {top_score}",align="center", font=("calibri",24,"bold"))
             for i in snakecomp.structure:
                 if ptak.picture1.distance(i)<30:
                     finish()
-    
+    while time.time()<oldtime+0.02:
+        pass
+    oldtime=time.time()
