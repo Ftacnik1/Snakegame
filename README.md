@@ -6,6 +6,7 @@
 <p class="para">Pokud máte zkušenosti se spouštěním kódu v pythonu můžete přeskočit na další <a href="#ch06">instrukce</a>.<br>
 <b>Požadavky pro spuštění kódu a instalaci hry</b></p>
 <ul><li>Mít stažený python</li>
+<li>Mít stažené potřebné knihovny<ul><li>pip install chime</li> <li>pip install pygame</li> </ul></li>
 <li>Mít připojení k internetu</li>
 <li>Možnost stahovat soubory do počítače</li></ul>
 <p class="para"><B>Jak zjistit jestli je stažený python na mém zařízení <i>(kroky řešení)</i></b></p>
